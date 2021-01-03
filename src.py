@@ -1,6 +1,6 @@
 from tkinter import *
 import pyautogui, sys, random, threading, sched, time
-from pynput import mouse
+import pynput
 
 isMoving = True  
 
@@ -26,8 +26,7 @@ def stop():
 
 
 ## Main ##
-
-listener = mouse.Listener(
+listener = pynput.mouse.Listener(
             on_click=on_click)
 
 listener.start()
