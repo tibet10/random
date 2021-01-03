@@ -2,36 +2,39 @@ from tkinter import *
 import pyautogui, sys, random, threading, sched, time
 import pynput
 
-isMoving = True  
+volumeFlag = True  
 
 def on_click(x, y, button, pressed):
-    global isMoving;
+    global volumeFlag;
     if pressed == True:
-        isMoving = False
+        volumeFlag = False
 
-def moveMouse():
-    global isMoving
-    if isMoving:  
-        pyautogui.moveTo(random.randint(1,1000), random.randint(1,1000), 2, pyautogui.easeInQuad)
+def volume():
+    global volumeFlag
+    if volumeFlag:  
+        pyautogui.press('volumedown')
+        time.sleep(1)
+        pyautogui.press('volumeup')
+        time.sleep(5)
 
-    root.after(1000, moveMouse)
+    root.after(1000, volume)
 
 def start():
-    global isMoving
-    isMoving = True
-    root.after(1000, moveMouse)     
+    global volumeFlag
+    volumeFlag = True
+    root.after(1000, volume)     
 
 def stop():
-    global isMoving
-    isMoving = False
+    global volumeFlag
+    volumeFlag = False
 
 
-## Main ##
 listener = pynput.mouse.Listener(
             on_click=on_click)
 
 listener.start()
 
+## Main ##
 root = Tk()
 root.title("Hi")
 root.geometry("500x500")
@@ -39,10 +42,9 @@ root.geometry("500x500")
 app = Frame(root)
 app.grid()
 
-start = Button(app, text="Start mouse move...", command=start)
+start = Button(app, text="Start...", command=start)
 
 start.grid()
-#root.after(1000, moveMouse)  
 root.mainloop()
 
 
