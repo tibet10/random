@@ -19,6 +19,7 @@ def moveMouse():
 def start():
     global isMoving
     isMoving = True
+    root.after(1000, moveMouse)     
 
 def stop():
     global isMoving
@@ -32,7 +33,7 @@ listener = pynput.mouse.Listener(
 listener.start()
 
 root = Tk()
-root.title("Title")
+root.title("Hi")
 root.geometry("500x500")
 
 app = Frame(root)
@@ -41,8 +42,7 @@ app.grid()
 start = Button(app, text="Start mouse move...", command=start)
 
 start.grid()
-
-root.after(1000, moveMouse)  
+#root.after(1000, moveMouse)  
 root.mainloop()
 
 
